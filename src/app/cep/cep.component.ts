@@ -20,7 +20,8 @@ export class CepComponent implements OnInit {
 
   ngOnInit() {
    this.cepForm = this.fb.group({
-     cep: ['',[Validators.required]]
+     cep: ['',[Validators.required]],
+     rua: ['',[Validators.required]]
    })
 
   }
@@ -34,7 +35,7 @@ export class CepComponent implements OnInit {
       if(validacep.test(cep)){
        return this.http.get(`${API}/${cep}/json`)
         .map((res) => res.json())
-        .subscribe(res => console.log(res))
+        .subscribe(res => this.cepForm.get('rua').patchValue(res.logradouro))
       }
     }
   }
